@@ -13,6 +13,8 @@ function Signup() {
 
     const[isPopupVisible , setPopupVisible] = useState(false);
 
+    const[errorPopupVisible, setErrorPopup] = useState(false);
+
 
     const [Formdata, setFormdata] = useState({
         username:'',
@@ -64,7 +66,7 @@ function Signup() {
             }
 
         } catch(error){
-            alert("Username or Email Already exists", error);
+           setErrorPopup(true);
 
             console.log("Error occured while creating User:", error);
         }
@@ -73,6 +75,7 @@ function Signup() {
     
     const closePopup = () => {
         setPopupVisible(false);
+        setErrorPopup(false);
     };
 
     return(
@@ -80,7 +83,7 @@ function Signup() {
 
         <Header/>
 
-        <div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-orange-200 lg:bg-yellow-100 py-16 rounded-md">
+        <div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-rose-300 py-16 rounded-md">
 
 
 
@@ -122,6 +125,15 @@ function Signup() {
             {
                 isPopupVisible && 
                     <Popup message="User Created Successfully" onClose={closePopup} />
+                
+            }
+
+        </div>
+
+        <div>
+            {
+                errorPopupVisible && 
+                    <Popup message="Username or Email already exists." onClose={closePopup} />
                 
             }
 

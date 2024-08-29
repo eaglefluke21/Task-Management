@@ -76,7 +76,7 @@ function Login() {
         <div className="flex flex-col min-h-screen ">
         <Header/>
 
-        <div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-blue-200 lg:bg-emerald-100 py-16 rounded-md">
+        <div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-blue-300 py-16 rounded-md">
 
             <form className="flex flex-col justify-center px-6 sm:px-40 lg:px-20 lg:w-[40rem]" onSubmit={handleSubmit}>
 

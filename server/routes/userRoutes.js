@@ -9,7 +9,6 @@ import { cryptoEncryption } from "../controllers/userController.js";
 import RoleCheck from "../middleware/RoleCheck.js";
 import { forgotPassword } from "../controllers/userController.js";
 import { resetPassword } from "../controllers/userController.js";
-import authenticateJWT from "../middleware/authenticateJWT.js";
 import { checkrole } from "../controllers/userController.js";
 import { checklogstatus } from "../controllers/userController.js";
 import { userlogout } from "../controllers/userController.js";
@@ -18,13 +17,14 @@ import { getTasks } from "../controllers/userController.js";
 import { updateTask } from "../controllers/userController.js";
 import { deleteTask } from "../controllers/userController.js";
 import { markTaskCompleted } from "../controllers/userController.js";
+import authuserRole from "../middleware/authuserRole.js";
+import associateTask from "../middleware/associateTask.js";
 
 function userRoutes () {
     const router = Router();
     router.get('/env', RoleCheck('user'),checkenv);
 
     router.get('/admin', RoleCheck('admin'),checkreq);
-
 
     router.get('/getEncryptkey',cryptoEncryption);
 
@@ -38,21 +38,21 @@ function userRoutes () {
 
     router.post('/reset-password/:token', resetPassword);
 
-    router.get('/api/protected', authenticateJWT,checkrole);
+    router.get('/api/protected', authuserRole,checkrole);
     
     router.get('/checkstatus', checklogstatus);
 
     router.post('/logout', userlogout);
 
-    router.get('/getTasks', getTasks);
+    router.get('/getTasks',associateTask, getTasks);
 
-    router.post('/addTask',addTask);
+    router.post('/addTask', associateTask, addTask);
 
-    router.delete('/deleteTask/:id', deleteTask);
+    router.delete('/deleteTask/:id',associateTask, deleteTask);
 
-    router.put('/updateTask/:id',updateTask);
+    router.put('/updateTask/:id',associateTask,  updateTask);
 
-    router.put('/markCompleted/:id',markTaskCompleted);
+    router.put('/markCompleted/:id', associateTask,  markTaskCompleted);
 
     return router;
 };

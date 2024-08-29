@@ -25,6 +25,7 @@ const ResetPassword = () => {
             const response = await apiAxios.post(`/users/reset-password/${token}`,data);
 
             if(response.status === 201) {
+                setPassword('');
                 setPopupVisible(true);                
             } else {
                 console.error('Reset password failed:', error);
@@ -65,7 +66,7 @@ return (
 
 <Header/>
 
-<div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-rose-200 lg:bg-cyan-100 py-16 rounded-md">
+<div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-cyan-300 py-16 rounded-md">
 
 
 

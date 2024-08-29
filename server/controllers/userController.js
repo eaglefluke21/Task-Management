@@ -106,9 +106,9 @@ export async function userLogin(req,res) {
             res.cookie('token', token, {
                 httpOnly: true,
                 expires: oneDay,
-                secure: true,
-                sameSite: 'None',
-                path: '/'  
+                // secure: true,
+                // sameSite: 'None',
+                // path: '/'  
             });
 
           
@@ -276,8 +276,17 @@ export async function resetPassword(req,res){
 
  // Get Tasks
  const getTasks = async (req, res) => {
-    const tasks = await TaskModel.find({ });
+
+  try{
+
+    const userId = req.user.user.id;
+    const tasks = await TaskModel.find({user: userId });
     res.json(tasks);
+  }catch(error){
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
+    
   };
   
   
@@ -289,100 +298,106 @@ export async function resetPassword(req,res){
   
       console.log("check incoming data",{title,description});
     
+    try {
+
+      const userId = req.user.user.id;
+
       const task = new TaskModel({
         title,
         description,
+        user: userId,
       });
     
       const createdTask = await task.save();
       res.status(201).json(createdTask);
+
+    } catch (error) {
+      console.error('Error saving task:', error);
+      res.status(500).json({ error: 'Failed to save task' });
+
+    }
+
+      
     };
     
    
-  
-    const deleteTask = async (req, res) => {
-      try {
-  
-        console.log(req.params.id);
-        const task = await TaskModel.findOne({ _id: req.params.id });
-    
-        if (!task) {
-          res.status(404);
-          throw new Error('Task not found');
-        }
-    
-    
-        const result = await TaskModel.deleteOne({ _id: req.params.id });
-    
-        if (result.deletedCount === 1) {
-          res.json({ message: 'Task deleted successfully' });
-        } else {
-          res.status(404);
-          throw new Error('Task not found');
-        }
-      } catch (error) {
-        console.error('Error deleting task:', error);
-        res.status(500).json({ error: 'Server error' });
-      }
-    };
+// Delete Task
+const deleteTask = async (req, res) => {
+  try {
+    const userId = req.user.user.id;
+
+    const task = await TaskModel.findOne({ _id: req.params.id, user: userId });
+
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found or unauthorized' });
+    }
+
+    const result = await TaskModel.deleteOne({ _id: req.params.id });
+
+    if (result.deletedCount === 1) {
+      res.json({ message: 'Task deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Task not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
     
     
   // update task 
-    const updateTask = async (req, res) => {
-      const { title, description, completed } = req.body;
+  const updateTask = async (req, res) => {
+    const { title, description, completed } = req.body;
+    const taskId = req.params.id;
+    const userId = req.user.user.id; 
   
-      console.log(title);
-      console.log(description);
+    try {
+
+      const task = await TaskModel.findOne({ _id: taskId, user: userId });
   
-      
-      console.log(req.params.id);
-      
-      console.log(req.params);
-  
-      const task = await TaskModel.findById(req.params.id);
-    
       if (task) {
-       
+
         task.set({
+          title: title || task.title,
+          description: description || task.description,
+          completed: completed !== undefined ? completed : task.completed,
+        });
   
-          title : title || task.title,
-          description : description || task.description,
-          completed : completed !== undefined ? completed : task.completed,
-  
-        })
-     
-    
         const updatedTask = await task.save();
         res.json(updatedTask);
-  
       } else {
-        
-        res.status(404);
-        throw new Error('Task not found');
+
+        res.status(404).json({ error: 'Task not found or you are not authorized to update this task' });
       }
-    };
+    } catch (error) {
+      console.error('Error updating task:', error);
+      res.status(500).json({ error: 'Failed to update task' });
+    }
+  };
   
   
-  // Mark task as completed
-  
-    const markTaskCompleted = async (req, res) => {
-      try {
-        const task = await TaskModel.findById(req.params.id);
-    
-        if (!task) {
-          res.status(404);
-          throw new Error('Task not found');
-        }
-    
-        task.completed = true; // Set task as completed
-        await task.save();
-    
-        res.json({ message: 'Task marked as completed' });
-      } catch (error) {
-        console.error('Error marking task as completed:', error);
-        res.status(500).json({ error: 'Server error' });
-      }
-    };
+const markTaskCompleted = async (req, res) => {
+  try {
+    const userId = req.user.user.id;
+
+    const task = await TaskModel.findOne({ _id: req.params.id, user: userId });
+
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found or unauthorized' });
+    }
+
+    task.completed = true; 
+    await task.save();
+
+    res.json({ message: 'Task marked as completed' });
+  } catch (error) {
+    console.error('Error marking task as completed:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
     
   
   

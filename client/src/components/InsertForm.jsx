@@ -23,8 +23,6 @@ const InsertForm = () => {
   };
 
 
-
-
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -45,7 +43,6 @@ const InsertForm = () => {
       const response = await apiAxios.post(`/users/addTask`,data);
 
       if (response.status === 201) {
-
         setTitle('');
         setDescription('');
         fetchTasks();

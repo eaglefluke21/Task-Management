@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const jwtsecret = process.env.JWT_SECRET;
 
-const authenticateJWT = (req, res, next) => {
+const associateTask = (req, res, next) => {
     
     console.log('cook', req.cookies);
   const token = req.cookies.token; 
@@ -26,4 +26,4 @@ const authenticateJWT = (req, res, next) => {
   });
 };
 
-export default authenticateJWT;
+export default associateTask;

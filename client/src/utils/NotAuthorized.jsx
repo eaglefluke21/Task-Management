@@ -19,7 +19,7 @@ const NotAuthorized = () => {
   return (
 
     
-<div className=" bg-red-500 flex flex-col min-h-screen ">
+<div className=" bg-pink-700 flex flex-col min-h-screen ">
 
 <Header/>
 
