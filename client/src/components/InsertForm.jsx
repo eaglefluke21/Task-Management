@@ -149,14 +149,14 @@ const InsertForm = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Task Name"
-          className="border rounded px-8 py-2 mb-4 font-quick font-medium"
+          className="border rounded px-8 py-2 mb-4 font-quick sm:font-bold sm:text-lg font-medium"
           required
         />
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Task Description"
-          className="border rounded w-72 h-48 mb-4 font-quick font-medium"
+          className="border rounded px-14 sm:px-40 h-48 sm:h-24 mb-4 font-quick sm:font-bold sm:text-lg font-medium"
           required
         />
         <button type="submit" className="bg-black text-white font-quick rounded px-4 py-2">
@@ -165,27 +165,27 @@ const InsertForm = () => {
       </form>
 
       <div className="mt-8   rounded-md  relative flex-col items-center justify-center ">
-        <h2 className="text-2xl font-light font-anta text-center text-white  mb-4 p-2">Submitted Tasks</h2>
+        <h2 className="text-2xl font-light font-anta text-center text-white  mb-4 p-2  ">Submitted Tasks</h2>
 
         <button onClick={() => setShowCompleted(!showCompleted)} className="bg-black  font-quick font-bold text-white rounded px-4 py-2 mx-4 mb-4">
           {showCompleted ? 'Hide Completed' : 'View Completed'}
         </button>
 
-        <ul className=" rounded w-96">
+        <ul className=" rounded w-96 space-y-2">
           {tasks.map(task => (
             (!task.completed || showCompleted) && (
-              <li key={task._id} className=" font-quick  rounded-md px-4 py-2">
+              <li key={task._id} className=" font-quick  rounded-md px-4 py-2 bg-stone-800">
                 <h3 className=" text-md text-white font-quick text-xl py-2"> <span className='font-bold'> Task : </span> {task.title}</h3>
                 <p className=" font-quick text-white text-lg"> <span className='font-bold'> Description : </span>{task.description}</p>
                 {!task.completed && (
-                  <button onClick={() => handleMarkCompleted(task._id)} className="bg-white font-quick text-blue-500 font-bold rounded px-4 py-2 mt-2">
+                  <button onClick={() => handleMarkCompleted(task._id)} className="bg-blue-500 font-quick text-white font-bold rounded px-4 py-2 mt-2">
                     Mark as Completed
                   </button>
                 )}
-                <button onClick={() => handleEdit(task._id)} className="bg-white font-quick text-green-500 font-bold rounded px-4 py-2 mt-2 ml-2">
+                <button onClick={() => handleEdit(task._id)} className="bg-green-500 font-quick text-white font-bold rounded px-4 py-2 mt-2 ml-2">
                   Edit
                 </button>
-                <button onClick={() => handleDelete(task._id)} className="bg-white font-quick text-red-600  font-bold rounded px-4 py-2 mt-2 ml-2">
+                <button onClick={() => handleDelete(task._id)} className="bg-red-500 font-quick text-white  font-bold rounded px-4 py-2 mt-2 ml-2">
                   Delete
                 </button>
               </li>

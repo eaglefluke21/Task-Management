@@ -32,7 +32,7 @@ function Home() {
     return (
         <>
         <Header/>
-        <div className="flex flex-col min-h-screen  bg-stone-600">
+        <div className="flex flex-col min-h-screen  bg-purple-500">
 
            
 

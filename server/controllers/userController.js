@@ -58,7 +58,7 @@ export async function checklogstatus(req,res){
 }
 
 export async function userlogout(req,res){
-    res.clearCookie('token');
+    res.clearCookie('token', {path: '/'});
   res.json({ isLoggedIn: false });
 }
 
