@@ -108,7 +108,8 @@ export async function userLogin(req,res) {
                 expires: oneDay,
                 secure: true,
                 sameSite: 'None',
-                path: '/'  
+                path: '/',
+                domain: '.vercel.app'
             });
 
           
