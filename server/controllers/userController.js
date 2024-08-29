@@ -106,9 +106,9 @@ export async function userLogin(req,res) {
             res.cookie('token', token, {
                 httpOnly: true,
                 expires: oneDay,
-                // secure: true,
-                // sameSite: 'None',
-                // path: '/'  
+                secure: true,
+                sameSite: 'None',
+                path: '/'  
             });
 
           
