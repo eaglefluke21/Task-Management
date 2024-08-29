@@ -58,7 +58,14 @@ export async function checklogstatus(req,res){
 }
 
 export async function userlogout(req,res){
-    res.clearCookie('token', {path: '/'});
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None',
+    path: '/',
+    domain: '.vercel.app' 
+});
+
   res.json({ isLoggedIn: false });
 }
 
@@ -101,11 +108,11 @@ export async function userLogin(req,res) {
             }
 
 
-            const oneDay = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            const oneHour = new Date(Date.now() + 60 * 60 * 1000);
 
             res.cookie('token', token, {
                 httpOnly: true,
-                expires: oneDay,
+                expires: oneHour,
                 secure: true,
                 sameSite: 'None',
                 path: '/',
