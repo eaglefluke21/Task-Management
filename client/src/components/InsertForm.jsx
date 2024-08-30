@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import apiAxios from '../services/api.js';
+import markImage from "../assets/mark.svg";
+import editImage from "../assets/editTask.svg";
+import deleteImage from "../assets/deleteTask.svg";
+import pinImage from "../assets/pin.svg";
+import dpinImage from "../assets/dpin.svg";
 
 const InsertForm = () => {
   const [title, setTitle] = useState('');
@@ -143,20 +148,20 @@ const InsertForm = () => {
   return (
     <div className="flex flex-col items-center justify-center ">
 
-      <form onSubmit={editMode ? handleUpdate : handleSubmit} className="flex flex-col items-center">
+      <form onSubmit={editMode ? handleUpdate : handleSubmit} className="flex flex-col items-center gap-4">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Task Name"
-          className="border rounded px-8 py-2 mb-4 font-quick sm:font-bold sm:text-lg font-medium"
+          placeholder="Title"
+          className="border rounded ps-2 w-64 h-12  font-quick sm:font-bold sm:text-lg font-medium text-wrap"
           required
         />
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Task Description"
-          className="border rounded px-14 sm:px-40 h-48 sm:h-24 mb-4 font-quick sm:font-bold sm:text-lg font-medium"
+          placeholder="Description"
+          className="border rounded ps-2 w-72 h-24 sm:w-96  sm:h-24  font-quick sm:font-bold sm:text-lg font-medium text-wrap"
           required
         />
         <button type="submit" className="bg-black text-white font-quick rounded px-4 py-2">
@@ -165,35 +170,47 @@ const InsertForm = () => {
       </form>
 
       <div className="mt-8   rounded-md  relative flex-col items-center justify-center ">
-        <h2 className="text-2xl font-light font-anta text-center text-white  mb-4 p-2  ">Submitted Tasks</h2>
+        {/* <h2 className="text-2xl font-light font-anta text-center text-white  mb-4 p-2  ">Submitted Tasks</h2> */}
 
-        <button onClick={() => setShowCompleted(!showCompleted)} className="bg-black  font-quick font-bold text-white rounded px-4 py-2 mx-4 mb-4">
-          {showCompleted ? 'Hide Completed' : 'View Completed'}
+        <button onClick={() => setShowCompleted(!showCompleted)} className="bg-black  font-quick font-bold text-white rounded px-2 py-2 mx-4 mb-4">
+          {showCompleted ? <span className="flex flex-row"> <img src={dpinImage} alt="" className="w-8 h-6" /> Hide </span> : <span className="flex flex-row"> <img src={pinImage} alt="" className="w-8 h-6" /> View </span>}
         </button>
 
-        <ul className=" rounded w-96 space-y-2">
+        <ul className=" rounded w-80 sm:w-[40rem] space-y-2">
           {tasks.map(task => (
             (!task.completed || showCompleted) && (
+
               <li key={task._id} className=" font-quick  rounded-md px-4 py-2 bg-stone-800">
+
                 <h3 className=" text-md text-white font-quick text-xl py-2"> <span className='font-bold'> Task : </span> {task.title}</h3>
-                <p className=" font-quick text-white text-lg"> <span className='font-bold'> Description : </span>{task.description}</p>
+
+                <p className=" font-quick text-white text-lg "> <span className='font-bold'> Description : </span>{task.description}</p>
+
+                <div className="flex flex-row ">
+
                 {!task.completed && (
-                  <button onClick={() => handleMarkCompleted(task._id)} className="bg-blue-500 font-quick text-white font-bold rounded px-4 py-2 mt-2">
-                    Mark as Completed
+                  <button onClick={() => handleMarkCompleted(task._id)} className="bg-blue-500 font-quick text-white font-bold rounded px-2 py-2 mt-2">
+                     <img src={markImage} alt="" className="w-8 h-6" />
                   </button>
                 )}
-                <button onClick={() => handleEdit(task._id)} className="bg-green-500 font-quick text-white font-bold rounded px-4 py-2 mt-2 ml-2">
-                  Edit
+
+                <button onClick={() => handleEdit(task._id)} className="bg-green-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 ml-2">
+                <img src={editImage} alt="" className="w-8 h-6" />
                 </button>
-                <button onClick={() => handleDelete(task._id)} className="bg-red-500 font-quick text-white  font-bold rounded px-4 py-2 mt-2 ml-2">
-                  Delete
+
+                <button onClick={() => handleDelete(task._id)} className="bg-red-500 font-quick text-white  font-bold rounded px-2 py-2 mt-2 ml-2">
+                <img src={deleteImage} alt="" className="w-8 h-6" />
                 </button>
+
+                </div>
+
               </li>
             )
           ))}
         </ul>
 
       </div>
+
     </div>
   );
 };
