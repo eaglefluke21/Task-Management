@@ -62,14 +62,12 @@ export async function userlogout(req,res){
     httpOnly: true,
     secure: true,
     sameSite: 'None',
-    path: '/',
-    domain: '.vercel.app' 
 });
 
   res.json({ isLoggedIn: false });
 }
 
-// logic fo Login
+// logic to Login
 export async function userLogin(req,res) {
     const {email, password} = req.body;
     try {
@@ -115,8 +113,8 @@ export async function userLogin(req,res) {
                 expires: oneHour,
                 secure: true,
                 sameSite: 'None',
-                path: '/',
-                domain: '.vercel.app'
+                
+                
             });
 
           
