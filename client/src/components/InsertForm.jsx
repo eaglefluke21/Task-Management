@@ -188,20 +188,20 @@ const InsertForm = () => {
 {/* Form  */}
 
       <form onSubmit={editMode ? handleUpdate : handleSubmit} className="flex flex-col items-center justify-center gap-2 ">
-        <div className="flex flex-col items-center justify-center  rounded-md">
+        <div className="flex flex-col items-center justify-center  ">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
-          className="focus:outline-none  ps-2 w-72 h-10 sm:w-96    font-quick sm:font-normal sm:text-lg font-sm text-wrap bg-gray-600 text-white placeholder-white required"
+          className="focus:outline-none  ps-2 w-72 h-10 sm:w-96    font-quick sm:font-semibold sm:text-lg font-sm text-wrap bg-gray-200 text-black placeholder-black rounded-t-md required"
           required
         />
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
-          className="focus:outline-none ps-2 w-72 h-24 sm:w-96  sm:h-24  font-quick sm:font-normal sm:text-lg font-sm text-wrap bg-gray-600 text-white placeholder-white required"
+          className="focus:outline-none ps-2 w-72 h-24 sm:w-96  sm:h-24  font-quick sm:font-semibold sm:text-lg font-sm text-wrap bg-gray-200 text-black placeholder-black rounded-b-md required"
           required
         />
         </div>
