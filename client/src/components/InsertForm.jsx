@@ -6,7 +6,38 @@ import deleteImage from "../assets/deleteTask.svg";
 import pinImage from "../assets/pin.svg";
 import dpinImage from "../assets/dpin.svg";
 
+
+
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
+
+
 const InsertForm = () => {
+
+// shadn cn state Managment
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleTaskClick = (task) => {
+    setSelectedTask(task);
+  };
+
+  const handleAction = (action, taskId) => {
+    action(taskId); 
+    setSelectedTask(null); 
+  };
+
+
+
+
+// Manage State
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tasks, setTasks] = useState([]);
@@ -16,6 +47,7 @@ const InsertForm = () => {
 
 
 
+  //Fetch Tasks
   const fetchTasks = async () => {
     try {
       
@@ -34,7 +66,7 @@ const InsertForm = () => {
 
 
 
-
+//Add Tasks
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -62,7 +94,7 @@ const InsertForm = () => {
 
 
 
-
+//Edit Tasks
   const handleEdit = (taskId) => {
     setEditMode(true);
     const taskToEdit = tasks.find(task => task._id === taskId);
@@ -104,7 +136,7 @@ const InsertForm = () => {
 
 
 
-
+//Delete Tasks
   const handleDelete = async (taskId) => {
     try {
     
@@ -126,7 +158,7 @@ const InsertForm = () => {
 
 
 
-  
+  //Mark Task as Completed
   const handleMarkCompleted = async (taskId) => {
     try {
       
@@ -145,69 +177,123 @@ const InsertForm = () => {
     }
   };
 
-  return (
-    <div className="flex flex-col items-center justify-center ">
 
-      <form onSubmit={editMode ? handleUpdate : handleSubmit} className="flex flex-col items-center gap-4">
+
+
+
+  return (
+
+<div className="flex flex-col  items-center justify-center ">
+
+{/* Form  */}
+
+      <form onSubmit={editMode ? handleUpdate : handleSubmit} className="flex flex-col items-center justify-center gap-2 ">
+        <div className="flex flex-col items-center justify-center  rounded-md">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
-          className="border rounded ps-2 w-64 h-12  font-quick sm:font-bold sm:text-lg font-medium text-wrap"
+          className="focus:outline-none  ps-2 w-72 h-10 sm:w-96    font-quick sm:font-normal sm:text-lg font-sm text-wrap bg-gray-600 text-white placeholder-white required"
           required
         />
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
-          className="border rounded ps-2 w-72 h-24 sm:w-96  sm:h-24  font-quick sm:font-bold sm:text-lg font-medium text-wrap"
+          className="focus:outline-none ps-2 w-72 h-24 sm:w-96  sm:h-24  font-quick sm:font-normal sm:text-lg font-sm text-wrap bg-gray-600 text-white placeholder-white required"
           required
         />
-        <button type="submit" className="bg-black text-white font-quick rounded px-4 py-2">
+        </div>
+        <button type="submit" className="bg-yellow-400 text-black font-quick font-bold text-xs  sm:font-semibold  sm:text-lg rounded px-4 py-2">
           {editMode ? 'Update Task' : 'Add Task'}
         </button>
       </form>
 
-      <div className="mt-8   rounded-md  relative flex-col items-center justify-center ">
-        {/* <h2 className="text-2xl font-light font-anta text-center text-white  mb-4 p-2  ">Submitted Tasks</h2> */}
 
-        <button onClick={() => setShowCompleted(!showCompleted)} className="bg-black  font-quick font-bold text-white rounded px-2 py-2 mx-4 mb-4">
-          {showCompleted ? <span className="flex flex-row"> <img src={dpinImage} alt="" className="w-8 h-6" /> Hide </span> : <span className="flex flex-row"> <img src={pinImage} alt="" className="w-8 h-6" /> View </span>}
+
+
+
+      <div className="mt-8  rounded-md flex flex-col items-center justify-center  ">
+
+
+
+      {/* View Button */}
+      <div className="self-start w-full">
+        <button onClick={() => setShowCompleted(!showCompleted)} className="bg-gray-600  text-white font-quick font-medium text-xs  sm:font-semibold  sm:text-lg rounded px-2 py-2 mx-4 mb-4 ">
+          {showCompleted ? <span className="flex flex-row text-white"> <img src={dpinImage} alt="" className="w-6 h-4 sm:w-8 sm:h-6  " /> Hide </span> : <span className="flex flex-row  "> <img src={pinImage} alt="" className="w-6 h-4 sm:w-8 sm:h-6" /> View </span>}
         </button>
 
-        <ul className=" rounded w-80 sm:w-[40rem] space-y-2">
-          {tasks.map(task => (
-            (!task.completed || showCompleted) && (
+        </div>
 
-              <li key={task._id} className=" font-quick  rounded-md px-4 py-2 bg-stone-800">
 
-                <h3 className=" text-md text-white font-quick text-xl py-2"> <span className='font-bold'> Task : </span> {task.title}</h3>
 
-                <p className=" font-quick text-white text-lg "> <span className='font-bold'> Description : </span>{task.description}</p>
 
-                <div className="flex flex-row ">
 
-                {!task.completed && (
-                  <button onClick={() => handleMarkCompleted(task._id)} className="bg-blue-500 font-quick text-white font-bold rounded px-2 py-2 mt-2">
-                     <img src={markImage} alt="" className="w-8 h-6" />
+        {/* Task List */}
+        <ul className="rounded w-80 sm:w-[40rem]  grid grid-cols-2 gap-2">
+        {tasks.map(task => (
+          (!task.completed || showCompleted) && (
+            <li key={task._id} className="font-quick rounded-md px-4 py-2 bg-yellow-400">
+              <h3 
+                className="text-black font-quick font-medium text-xs  sm:font-semibold sm:text-lg py-2 cursor-pointer"
+                onClick={() => handleTaskClick(task)}
+              >
+                {task.title}
+              </h3>
+            </li>
+          )
+        ))}
+      </ul>
+
+
+
+        {/* Sheet with Selected Task */}
+
+      {selectedTask && (
+        <Sheet open={!!selectedTask} onOpenChange={() => setSelectedTask(null)}>
+          <SheetTrigger>
+            {/* <button>Click here?</button> */}
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Task: {selectedTask.title}</SheetTitle>
+              <SheetDescription>
+
+
+                <div className="font-quick text-black text-lg">
+                  <span className='font-bold'>Description:</span> {selectedTask.description}
+                </div>
+
+
+                <div className="flex flex-row justify-center mt-4">
+
+                  {!selectedTask.completed && (
+                    <button onClick={() => handleAction(handleMarkCompleted, selectedTask._id)}
+                    className="bg-blue-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 flex items-center">
+                      <img src={markImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline"> Mark </span>
+                    </button>
+                  )}
+
+                  <button onClick={() => handleAction(handleEdit, selectedTask._id)} 
+                  className="bg-green-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 ml-2 flex items-center">
+                    <img src={editImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline"> Edit </span>
                   </button>
-                )}
 
-                <button onClick={() => handleEdit(task._id)} className="bg-green-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 ml-2">
-                <img src={editImage} alt="" className="w-8 h-6" />
-                </button>
-
-                <button onClick={() => handleDelete(task._id)} className="bg-red-500 font-quick text-white  font-bold rounded px-2 py-2 mt-2 ml-2">
-                <img src={deleteImage} alt="" className="w-8 h-6" />
-                </button>
+                  <button onClick={() => handleAction(handleDelete, selectedTask._id)} 
+                  className="bg-red-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 ml-2 flex items-center ">
+                    <img src={deleteImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline">Delete</span>
+                  </button>
 
                 </div>
 
-              </li>
-            )
-          ))}
-        </ul>
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
+      )}
+
+
 
       </div>
 

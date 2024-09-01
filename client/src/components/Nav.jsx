@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import close from "../assets/close.svg"
+import menu from "../assets/menu.svg"
 import { useEffect } from "react";
 import apiAxios from "../services/api";
 
@@ -34,9 +35,9 @@ const NavLinks = () => {
 
     return (
         <>
-            <NavLink to="/home" className="  sm:text-xl font-quick  w-full text-center lg:w-auto hover:bg-gray-200 lg:hover:bg-transparent  "> Home</NavLink>
-            <NavLink to="/Access" className="  sm:text-xl font-quick   w-full text-center lg:w-auto hover:bg-gray-200 lg:hover:bg-transparent "> Access</NavLink>
-            <NavLink to="/" className="lg:ml-auto lg:pr-8"> {isLoggedIn ? (<button onClick={handleLogout} className="bg-black sm:py-2 sm:px-3 py-1 px-8 rounded-md text-sm font-quick text-white "> Logout </button>) : (<button className="bg-black sm:py-2 sm:px-3 py-1 px-8 rounded-md text-sm font-quick text-white "> Log In</button>)  }  </NavLink>
+            <NavLink to="/home" className="text-white  sm:text-xl font-quick  w-full text-center lg:w-auto hover:bg-gray-200 lg:hover:bg-transparent  "> Home</NavLink>
+            <NavLink to="/Access" className=" text-white sm:text-xl font-quick   w-full text-center lg:w-auto hover:bg-gray-200 lg:hover:bg-transparent "> Access</NavLink>
+            <NavLink to="/" className="lg:ml-auto lg:pr-8"> {isLoggedIn ? (<button onClick={handleLogout} className="bg-black  rounded-md text-sm font-quick text-white sm:text-xl "> Logout </button>) : (<button className="bg-black  rounded-md text-sm font-quick text-white sm:text-xl "> Log In</button>)  }  </NavLink>
         </>
     )
 
@@ -59,7 +60,7 @@ const Nav = () => {
 
                 <div className="lg:hidden">
                     <button onClick={toggleNavbar} className="pr-8">
-                        {isOpen ? <span className="   text-3xl font-quick text-black" > <img src={close} className="h-8 w-8" /> </span> : <span className="bg-black py-2 px-3 rounded-lg text-sm font-comic text-white "> Menu</span>}
+                        {isOpen ? <span className="   text-3xl font-quick text-white" > <img src={close} className="h-8 w-8" /> </span> : <span className="   text-3xl font-quick text-white" > <img src={menu} className="h-8 w-8" /> </span>}
                     </button>
                 </div>
 

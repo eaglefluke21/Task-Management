@@ -1,10 +1,9 @@
-
-import InsertForm from "../components/InsertForm";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import getRoleFromToken from "../utils/getRoleFromToken";
+import InsertForm from "../components/InsertForm";
 
 
 
@@ -27,36 +26,47 @@ function Home() {
     }, [navigate]);
 
 
-    
+  
 
     return (
-        <>
+        <div className=" bg-black">
         <Header/>
-        <div className="flex flex-col min-h-screen  bg-purple-500">
+        <div className="flex flex-col min-h-screen ">
+        <div className="flex flex-col justify-center items-center p-8">
 
-           
-
-            <div className="flex flex-col justify-center items-center p-8">
-
-        <h1 className=" text-xl text-center font-anta text-white p-2  sm:text-3xl  ">
+        
+        <h1 className=" text-xl text-center font-anta text-yellow-400 p-2  sm:text-3xl my-4 ">
 
             To do List
 
         </h1>
+       
 
-
-        <InsertForm />
+        <InsertForm  />
        
         </div>
 
-
-
-
-
-
         </div>
-        <Footer/>
-        </>
+
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
 
     )
 }
