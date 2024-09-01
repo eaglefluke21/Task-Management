@@ -37,7 +37,7 @@ const NavLinks = () => {
         <>
             <NavLink to="/home" className="text-white  sm:text-xl font-quick  w-full text-center lg:w-auto hover:bg-gray-200 lg:hover:bg-transparent  "> Home</NavLink>
             <NavLink to="/Access" className=" text-white sm:text-xl font-quick   w-full text-center lg:w-auto hover:bg-gray-200 lg:hover:bg-transparent "> Access</NavLink>
-            <NavLink to="/" className="lg:ml-auto lg:pr-8"> {isLoggedIn ? (<button onClick={handleLogout} className="bg-black  rounded-md text-sm font-quick text-white sm:text-xl "> Logout </button>) : (<button className="bg-black  rounded-md text-sm font-quick text-white sm:text-xl "> Log In</button>)  }  </NavLink>
+            <NavLink to="/" className="lg:ml-auto lg:pr-8"> {isLoggedIn ? (<button onClick={handleLogout} className=" rounded-md text-sm font-quick text-white sm:text-xl "> Logout </button>) : (<button className="  rounded-md text-sm font-quick text-white sm:text-xl "> Log In</button>)  }  </NavLink>
         </>
     )
 
