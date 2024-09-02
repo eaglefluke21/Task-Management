@@ -62,11 +62,11 @@ return (
 
     // </div>
 
-    <div className="flex flex-col min-h-screen ">
+    <div className="flex flex-col min-h-screen bg-cyan-500 ">
 
 <Header/>
 
-<div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-cyan-300 py-16 rounded-md">
+<div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly  py-16 rounded-md">
 
 
 

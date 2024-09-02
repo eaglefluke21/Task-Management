@@ -28,7 +28,7 @@ const Access= () => {
 
 
     return (
-        <div className=" bg-black flex flex-col min-h-screen ">
+        <div className=" bg-green-700 flex flex-col min-h-screen ">
 
             <Header/>
 

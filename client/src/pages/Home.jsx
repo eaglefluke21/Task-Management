@@ -29,13 +29,13 @@ function Home() {
   
 
     return (
-        <div className=" bg-black">
+        <div className=" bg-gray-800">
         <Header/>
         <div className="flex flex-col min-h-screen ">
         <div className="flex flex-col justify-center items-center p-8">
 
         
-        <h1 className=" text-xl text-center font-anta text-yellow-400 p-2  sm:text-3xl my-4 ">
+        <h1 className=" text-xl text-center font-anta text-yellow-500 p-2  sm:text-3xl my-4 ">
 
             To do List
 

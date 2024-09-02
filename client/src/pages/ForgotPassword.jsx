@@ -44,11 +44,11 @@ const ForgotPassword = () => {
 
 return (
 
-<div className="flex flex-col min-h-screen ">
+<div className="flex flex-col min-h-screen  bg-stone-400 ">
 
 <Header/>
 
-<div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-stone-300 py-16 rounded-md">
+<div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly py-16 rounded-md">
 
 
 

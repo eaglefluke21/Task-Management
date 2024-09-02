@@ -73,7 +73,7 @@ function Login() {
 
 
     return (
-        <div className="flex flex-col min-h-screen   bg-blue-300">
+        <div className="flex flex-col min-h-screen   bg-blue-400">
         <Header/>
 
         <div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly py-16 rounded-md">

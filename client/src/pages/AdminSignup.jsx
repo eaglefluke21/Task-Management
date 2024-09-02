@@ -82,11 +82,11 @@ function AdminSignup() {
     };
 
     return(
-        <div className="flex flex-col min-h-screen ">
+        <div className="flex flex-col min-h-screen bg-purple-400">
 
         <Header/>
 
-        <div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly bg-purple-300 py-16 rounded-md">
+        <div className="flex flex-col flex-grow lg:flex-row lg:justify-evenly  py-16 rounded-md">
 
 
 

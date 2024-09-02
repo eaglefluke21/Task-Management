@@ -205,7 +205,7 @@ const InsertForm = () => {
           required
         />
         </div>
-        <button type="submit" className="bg-yellow-400 text-black font-quick font-bold text-xs  sm:font-semibold  sm:text-lg rounded px-4 py-2">
+        <button type="submit" className="bg-yellow-500 text-black font-quick font-bold text-xs  sm:font-semibold  sm:text-lg rounded px-4 py-2">
           {editMode ? 'Update Task' : 'Add Task'}
         </button>
       </form>
@@ -234,7 +234,7 @@ const InsertForm = () => {
         <ul className="rounded w-80 sm:w-[40rem]  grid grid-cols-2 gap-2">
         {tasks.map(task => (
           (!task.completed || showCompleted) && (
-            <li key={task._id} className="font-quick rounded-md px-4 py-2 bg-yellow-400">
+            <li key={task._id} className="font-quick rounded-md px-4 py-2 bg-yellow-500">
               <h3 
                 className="text-black font-quick font-medium text-xs  sm:font-semibold sm:text-lg py-2 cursor-pointer"
                 onClick={() => handleTaskClick(task)}
@@ -250,48 +250,38 @@ const InsertForm = () => {
 
         {/* Sheet with Selected Task */}
 
-      {selectedTask && (
-        <Sheet open={!!selectedTask} onOpenChange={() => setSelectedTask(null)}>
-          <SheetTrigger>
-            {/* <button>Click here?</button> */}
-          </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>Task: {selectedTask.title}</SheetTitle>
-              <SheetDescription>
+        {selectedTask && (
+  <Sheet open={!!selectedTask} onOpenChange={() => setSelectedTask(null)}>
 
+    <SheetContent className="flex flex-col  justify-between">
 
-                <div className="font-quick text-black text-lg">
-                  <span className='font-bold'>Description:</span> {selectedTask.description}
-                </div>
-
-
-                <div className="flex flex-row justify-center mt-4">
-
-                  {!selectedTask.completed && (
-                    <button onClick={() => handleAction(handleMarkCompleted, selectedTask._id)}
-                    className="bg-blue-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 flex items-center">
-                      <img src={markImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline"> Mark </span>
-                    </button>
-                  )}
-
-                  <button onClick={() => handleAction(handleEdit, selectedTask._id)} 
-                  className="bg-green-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 ml-2 flex items-center">
-                    <img src={editImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline"> Edit </span>
-                  </button>
-
-                  <button onClick={() => handleAction(handleDelete, selectedTask._id)} 
-                  className="bg-red-500 font-quick text-white font-bold rounded px-2 py-2 mt-2 ml-2 flex items-center ">
-                    <img src={deleteImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline">Delete</span>
-                  </button>
-
-                </div>
-
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
-      )}
+      <div className="flex flex-col">
+        <SheetTitle>Task: {selectedTask.title}</SheetTitle>
+        <SheetDescription className="mt-4">
+          <div className="font-quick text-black text-lg">
+            <span className='font-bold'>Description:</span> {selectedTask.description}
+          </div>
+        </SheetDescription>
+      </div>
+      <div className="flex flex-row justify-center mt-4 space-x-2">
+        {!selectedTask.completed && (
+          <button onClick={() => handleAction(handleMarkCompleted, selectedTask._id)}
+            className="bg-blue-500 font-quick text-white font-bold rounded px-2 py-2 flex items-center">
+            <img src={markImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline"> Mark </span>
+          </button>
+        )}
+        <button onClick={() => handleAction(handleEdit, selectedTask._id)}
+          className="bg-green-500 font-quick text-white font-bold rounded px-2 py-2 flex items-center">
+          <img src={editImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline"> Edit </span>
+        </button>
+        <button onClick={() => handleAction(handleDelete, selectedTask._id)}
+          className="bg-red-500 font-quick text-white font-bold rounded px-2 py-2 flex items-center">
+          <img src={deleteImage} alt="" className="w-8 h-6" /> <span className="hidden sm:inline"> Delete </span>
+        </button>
+      </div>
+    </SheetContent>
+  </Sheet>
+)}
 
 
 
