@@ -1,4 +1,4 @@
-import React ,{ useState } from "react";
+import React ,{ useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoginImage from "../assets/login.jpg";
@@ -14,9 +14,29 @@ import apiAxios from "../services/api.js";
 function Login() {
 
 
+    const navigate = useNavigate();
+
+    const checklogstatus = async() => {
+
+        const response = await apiAxios.get(`/users/checkstatus`);
+
+        console.log("status",response.data.isLoggedIn);
+
+        if(response.data.isLoggedIn === true){
+
+            navigate('/home');
+        }
+
+    };
+
+    useEffect(() => {
+        checklogstatus(); 
+      }, [navigate]);
+
+
     const[isPopupVisible , setPopupVisible] = useState(false);
 
-    const navigate = useNavigate();
+    
     
     const [Formdata, setFormdata] = useState({
         email:'',
