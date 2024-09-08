@@ -8,6 +8,6 @@ const taskSchema = new mongoose.Schema({
   user: {type:mongoose.Schema.Types.ObjectId, ref:'User', required: true}
 });
 
-const TaskModel = mongoose.model('taskSchema',taskSchema);
+const TaskModel = mongoose.model('UserTasks',taskSchema);
 
 export default TaskModel;
